@@ -1,5 +1,5 @@
 class CurrentWeather {
-
+ //region private members
   late String _city;
   late String _description;
   late double _currentTemp;
@@ -64,7 +64,9 @@ class CurrentWeather {
   DateTime get sunrise => _sunrise;
 
   set sunrise(DateTime value){
-    if (!value.isAtSameMomentAs(currentTime)){
+    if (!(value.year == currentTime.year &&
+        value.month == currentTime.month &&
+        value.day == currentTime.day)){
       throw Exception('Sunrise must be on the same day as current time');
     } else if (value.isAfter(sunset)){
       throw Exception('Sunrise cannot be after sunset');
@@ -77,7 +79,9 @@ class CurrentWeather {
   DateTime get sunset => _sunset;
 
   set sunset(DateTime value){
-    if (!value.isAtSameMomentAs(currentTime)){
+    if (!(value.year == currentTime.year &&
+        value.month == currentTime.month &&
+        value.day == currentTime.day)){
       throw Exception('Sunset must be on the same day as current time');
     } else if (value.isBefore(sunrise)){
       throw Exception('Sunset cannot be before sunrise');
@@ -85,4 +89,16 @@ class CurrentWeather {
 
     _sunset = value;
   }
+  //endregion
+
+
+
+
+
+
+
+
+
+
+
 }
