@@ -91,7 +91,31 @@ class CurrentWeather {
   }
   //endregion
 
+  // region methods
 
+  factory CurrentWeather.fromOpenWeatherData(dynamic data) {
+    final city = data['name'];
+    final description = data['weather'][0]['description'];
+    final currentTemp = data['main']['temp'].toDouble();
+    final currentTime = DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000);
+    final sunrise = DateTime.fromMillisecondsSinceEpoch(data['sys']['sunrise'] * 1000);
+    final sunset = DateTime.fromMillisecondsSinceEpoch(data['sys']['sunset'] * 1000);
+
+    return CurrentWeather(city, description, currentTemp, currentTime, sunrise, sunset);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  //endregion
 
 
 
