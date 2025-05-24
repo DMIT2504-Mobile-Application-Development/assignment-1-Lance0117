@@ -7,8 +7,13 @@ class CurrentWeather {
   late DateTime _sunrise;
   late DateTime _sunset;
 
-  CurrentWeather(String city, String description, double currentTemp,
-      DateTime currentTime, DateTime sunrise, DateTime sunset) {
+  CurrentWeather(
+      {required String city,
+      required String description,
+      required double currentTemp,
+      required DateTime currentTime,
+      required DateTime sunrise,
+      required DateTime sunset}) {
     this.city = city;
     this.description = description;
     this.currentTemp = currentTemp;
@@ -78,28 +83,12 @@ class CurrentWeather {
   DateTime get sunrise => _sunrise;
 
   set sunrise(DateTime value) {
-    // if (!(value.year == currentTime.year &&
-    //     value.month == currentTime.month &&
-    //     value.day == currentTime.day)) {
-    //   throw Exception('Sunrise must be on the same day as current time');
-    // } else if (value.isAfter(sunset)) {
-    //   throw Exception('Sunrise cannot be after sunset');
-    // }
-
     _sunrise = value;
   }
 
   DateTime get sunset => _sunset;
 
   set sunset(DateTime value) {
-    // if (!(value.year == currentTime.year &&
-    //     value.month == currentTime.month &&
-    //     value.day == currentTime.day)) {
-    //   throw Exception('Sunset must be on the same day as current time');
-    // } else if (value.isBefore(sunrise)) {
-    //   throw Exception('Sunset cannot be before sunrise');
-    // }
-
     _sunset = value;
   }
   //endregion
@@ -117,7 +106,13 @@ class CurrentWeather {
         DateTime.fromMillisecondsSinceEpoch(data['sys']['sunset'] * 1000);
 
     return CurrentWeather(
-        city, description, currentTemp, currentTime, sunrise, sunset);
+      city: city,
+      description: description,
+      currentTemp: currentTemp,
+      currentTime: currentTime,
+      sunrise: sunrise,
+      sunset: sunset,
+    );
   }
 
   @override
@@ -125,6 +120,4 @@ class CurrentWeather {
       "City: $city, Description: $description, Current Temperature: $currentTemp, Current Time: $currentTime, Sunrise: $sunrise, Sunset: $sunset";
 
   //endregion
-
-
 }
