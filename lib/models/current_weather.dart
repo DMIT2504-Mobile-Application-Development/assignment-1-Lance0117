@@ -104,16 +104,8 @@ class CurrentWeather {
     return CurrentWeather(city, description, currentTemp, currentTime, sunrise, sunset);
   }
 
-
-
-
-
-
-
-
-
-
-
+  @override
+  String toString() => "City: $city, Description: $description, Current Temperature: $currentTemp, Current Time: $currentTime, Sunrise: $sunrise, Sunset: $sunset";
 
   //endregion
 
