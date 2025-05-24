@@ -10,15 +10,20 @@ const String weatherApiKey = "8e1a75480b4c86674740069a268fc4b0";
 final String currentWeatherEndpoint = "";
 
 Future<dynamic> getWeatherForCity({required String city}) async {
-  final String currentWeatherEndpoint = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=$city&appid=$weatherApiKey";
+  try {
+    final String currentWeatherEndpoint =
+        "https://api.openweathermap.org/data/2.5/weather?units=metric&q=$city&appid=$weatherApiKey";
 
-  final url = Uri.parse(currentWeatherEndpoint);
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body);
-  } else {
-    print('There was a problem with the request: status ${response.statusCode} received');
-    print('Response body: ${response.body}');
-    return null;
+    final url = Uri.parse(currentWeatherEndpoint);
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception(
+          'There was a problem with the request: status ${response.statusCode} received');
+    }
+  } catch (e) {
+    throw Exception('There was a problem with the request: $e');
   }
 }
