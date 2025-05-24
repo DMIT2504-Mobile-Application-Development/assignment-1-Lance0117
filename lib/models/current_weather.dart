@@ -35,8 +35,8 @@ class CurrentWeather {
       throw Exception('Sunset cannot be before sunrise');
     }
 
-    this.sunset = sunset;
-    this.sunrise = sunrise;
+    _sunset = sunset;
+    _sunrise = sunrise;
   }
 
   // Define properties
@@ -83,12 +83,30 @@ class CurrentWeather {
   DateTime get sunrise => _sunrise;
 
   set sunrise(DateTime value) {
+    if (!(value.year == _currentTime.year &&
+        value.month == _currentTime.month &&
+        value.day == _currentTime.day)) {
+      throw Exception('Sunrise must be on the same day as current time');
+    }
+    if (value.isAfter(_sunset)) {
+      throw Exception('Sunrise cannot be after sunset');
+    }
+
     _sunrise = value;
   }
 
   DateTime get sunset => _sunset;
 
   set sunset(DateTime value) {
+    if (!(value.year == _currentTime.year &&
+        value.month == _currentTime.month &&
+        value.day == _currentTime.day)) {
+      throw Exception('Sunset must be on the same day as current time');
+    }
+    if (value.isBefore(_sunrise)) {
+      throw Exception('Sunset cannot be before sunrise');
+    }
+
     _sunset = value;
   }
   //endregion
@@ -99,11 +117,11 @@ class CurrentWeather {
     final city = data['name'];
     final description = data['weather'][0]['description'];
     final currentTemp = data['main']['temp'].toDouble();
-    final currentTime = DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000);
+    final currentTime = DateTime.fromMillisecondsSinceEpoch((data['dt'] * 1000).toInt());
     final sunrise =
-        DateTime.fromMillisecondsSinceEpoch(data['sys']['sunrise'] * 1000);
+        DateTime.fromMillisecondsSinceEpoch((data['sys']['sunrise'] * 1000).toInt());
     final sunset =
-        DateTime.fromMillisecondsSinceEpoch(data['sys']['sunset'] * 1000);
+        DateTime.fromMillisecondsSinceEpoch((data['sys']['sunset'] * 1000).toInt());
 
     return CurrentWeather(
       city: city,
