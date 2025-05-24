@@ -117,11 +117,12 @@ class CurrentWeather {
     final city = data['name'];
     final description = data['weather'][0]['description'];
     final currentTemp = data['main']['temp'].toDouble();
-    final currentTime = DateTime.fromMillisecondsSinceEpoch((data['dt'] * 1000).toInt());
-    final sunrise =
-        DateTime.fromMillisecondsSinceEpoch((data['sys']['sunrise'] * 1000).toInt());
-    final sunset =
-        DateTime.fromMillisecondsSinceEpoch((data['sys']['sunset'] * 1000).toInt());
+    final currentTime =
+        DateTime.fromMillisecondsSinceEpoch((data['dt'] * 1000).toInt());
+    final sunrise = DateTime.fromMillisecondsSinceEpoch(
+        (data['sys']['sunrise'] * 1000).toInt());
+    final sunset = DateTime.fromMillisecondsSinceEpoch(
+        (data['sys']['sunset'] * 1000).toInt());
 
     return CurrentWeather(
       city: city,
